@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <title>🐄 Moovies</title>
+</head>
+<body>
+  <div class="navbar">
+    <h1>🐄 Moovies</h1>
+    <nav>
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./gallery.html">Gallery</a></li>
+        <li><a href="./login.html">Login</a></li>
+      </ul>
+    </nav>
+  </div>
+  <hr>
+  <main>
+    <div class="slideshow">
+      <div class="slideshow-images">
+        <img src="https://picsum.photos/400/300?1" alt="A photo with helpful alt text" title="A photo with helpful alt text">
+        <img src="https://picsum.photos/400/300?2" style="display: none" alt="A photo with helpful alt text" title="A photo with helpful alt text">
+        <img src="https://picsum.photos/400/300?3" style="display: none" alt="A photo with helpful alt text" title="A photo with helpful alt text">
+        <img src="https://picsum.photos/400/300?4" style="display: none" alt="A photo with helpful alt text" title="A photo with helpful alt text">
+      </div>
+      <button class="slideshow-previous" aria-label="Previous image">← Previous</button>
+      <button class="slideshow-next" aria-label="Next image">Next →</button>
+    </div>
+    <h2>The Cheesiest Movies Around</h2>
+    <p>
+      Get a moove on and start watching our curated collection of dairy related
+      moovies. Our premiere selection of Bovine Blockbusters is nothing short of
+      the perfect entertainment for you and everyone you know.
+    </p>
+    <p>
+      With over 5000 cinematic cow creations, you are sure to never run out of
+      udderly perfect viewing material. Sign up today to start your no-bull
+      experience.
+    </p>
+  </main>
+  <hr>
+  <footer>
+    <p>Copyright 2025, Moovies GmbH</p>
+    <div class="contact">
+      <span>Contact</span>
+      <ul class="contact-list">
+        <li><a href="mailto:contact@example.com">contact@example.com</a></li>
+        <li><a href="tel:+11234567890">+1 (123) 456-7890</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const waitTime = 4000
+    const slideshowWrapper = document.querySelector(".slideshow")
+    const slideshowImages = slideshowWrapper.querySelector(".slideshow-images")
+
+    let idx = 0
+    let interval
+
+    const setImageStyles = () => {
+      Array.from(slideshowImages.children).forEach(img =>  img.style = "display: none")
+      slideshowImages.children[idx].style = ""
+    }
+
+    const intervalFunction = () => {
+      idx += 1
+      idx %= slideshowImages.children.length
+      setImageStyles()
+    }
+
+    /**
+     * Return a function that changes the index of the current slideshow image by x amount
+     * @param {number} direction
+     * @returns {(function(): void)|*}
+     */
+    const btnListener = direction => {
+      return () => {
+        clearInterval(interval)
+        idx += direction
+        idx %= slideshowImages.children.length
+        if (idx < 0) {
+          idx += slideshowImages.children.length
+        }
+        setImageStyles()
+        interval = setInterval(intervalFunction, waitTime)
+      }
+    }
+
+    slideshowWrapper.querySelector(".slideshow-next").addEventListener("click", btnListener(1))
+    slideshowWrapper.querySelector(".slideshow-previous").addEventListener("click", btnListener(-1))
+
+    interval = setInterval(intervalFunction, waitTime)
+  </script>
+</body>
+</html>
