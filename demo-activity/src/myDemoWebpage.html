@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Activity Demo</title>
+</head>
+
+<body>
+    <h1>Classroom Activity Demo</h1>
+    <form method="get" action="/">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+        <input type="submit" value="Submit">
+        <input id="display-btn" type="button" value="Display">
+    </form>
+
+    <!-- RESPONSE DATA HERE -->
+
+    <script>
+        const displayBtn = document.getElementById("display-btn")
+        displayBtn.addEventListener("click", function (event) {
+            event.preventDefault()
+            window.location.search = "?display"
+        })
+    </script>
+</body>
+
+</html>
